@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คลังความทรงจำ 📸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,600&family=Caveat:wght@500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .wall{
+    display:flex; flex-wrap:wrap; gap:34px 26px;
+    justify-content:center;
+    padding:30px 0 10px;
+  }
+  .wall .polaroid{ width:230px; height:270px; cursor:pointer; }
+  .wall .polaroid img{ height:200px; }
+  .r1{ transform:rotate(-6deg); } .r2{ transform:rotate(4deg); }
+  .r3{ transform:rotate(-2deg); } .r4{ transform:rotate(7deg); }
+  .r5{ transform:rotate(-8deg); } .r6{ transform:rotate(3deg); }
+  .r7{ transform:rotate(-4deg); } .r8{ transform:rotate(6deg); }
+
+  .lightbox{
+    position:fixed; inset:0; z-index:100;
+    background:rgba(15,9,20,.9);
+    display:none; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox .polaroid{ max-width:min(480px,88vw); width:100%; transform:none !important; }
+  .lightbox .polaroid img{ height:auto; max-height:60vh; }
+  .lightbox-close{
+    position:absolute; top:22px; right:28px;
+    font-size:2rem; color:var(--pink-soft); cursor:pointer;
+    background:none; border:none;
+    transition:transform .3s cubic-bezier(.22,.68,.35,1), color .3s;
+  }
+  .lightbox-close:hover{ color:#fff; transform:rotate(90deg) scale(1.1); }
+  .lightbox .polaroid{ transition:opacity .35s ease; }
+</style>
+</head>
+<body>
+<div class="garland" id="garland-top"></div>
+<nav class="topnav">
+  <a href="index.html">🏠 Home</a>
+  <a href="gallery.html">📸 Gallery</a>
+  <a href="games.html">🎮 Games</a>
+  <a href="letter.html">💌 Letter</a>
+  <a href="wish.html">🕯️ Wishes</a>
+  <span class="date-pill">🎂 27.07.2569</span>
+</nav>
+<main>
+  <p class="eyebrow reveal">— Memmory —</p>
+  <h1 class="reveal">รูปหลุด!!</h1>
+  <p class="reveal">แตะที่รูปเพื่อดูเวอร์ชั่นหน้าใหญ่</p>
+
+  <div class="wall">
+    <figure class="polaroid r1 reveal" data-full="assets/img/photo1.jpeg"><img src="assets/img/photo1.jpeg" alt="photo 1"><figcaption>จมูกรูเบิกบาน </figcaption></figure>
+    <figure class="polaroid r2 reveal" data-full="assets/img/photo2.jpeg"><img src="assets/img/photo2.jpeg" alt="photo 2"><figcaption> คนอ้วนตีเเบต </figcaption></figure>
+    <figure class="polaroid r3 reveal" data-full="assets/img/photo3.jpeg"><img src="assets/img/photo3.jpeg" alt="photo 3"><figcaption> คุชชั่นเยิ้มลงคอ </figcaption></figure>
+    <figure class="polaroid r4 reveal" data-full="assets/img/photo4.jpeg"><img src="assets/img/photo4.jpeg" alt="photo 4"><figcaption>หน้ามุ่งมั่นที่จะกาม </figcaption></figure>
+    <figure class="polaroid r5 reveal" data-full="assets/img/photo5.jpeg"><img src="assets/img/photo5.jpeg" alt="photo 5"><figcaption> ภาพลักษณ์ชั่งมัน </figcaption></figure>
+    <figure class="polaroid r6 reveal" data-full="assets/img/photo6.jpeg"><img src="assets/img/photo6.jpeg" alt="photo 6"><figcaption> ปาดไหล่โชว์คอหมู </figcaption></figure>
+    <figure class="polaroid r7 reveal" data-full="assets/img/photo7.jpeg"><img src="assets/img/photo7.jpeg" alt="photo 7"><figcaption> สัญลักษณ์รูดำรู้กัน </figcaption></figure>
+    <figure class="polaroid r8 reveal" data-full="assets/img/photo8.jpeg"><img src="assets/img/photo8.jpeg" alt="photo 8"><figcaption> ฟิลเตอร์ยังบวม </figcaption></figure>
+  </div>
+</main>
+
+<footer>รูปหลุด กรุณาอย่าเเชร์</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">✕</button>
+  <figure class="polaroid"><img id="lbImg" src="" alt=""><figcaption id="lbCap"></figcaption></figure>
+</div>
+
+<script src="assets/common.js"></script>
+<script>
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCap = document.getElementById('lbCap');
+  document.querySelectorAll('.wall .polaroid').forEach(p=>{
+    p.addEventListener('click', ()=>{
+      lbImg.src = p.dataset.full;
+      lbCap.textContent = p.querySelector('figcaption').textContent;
+      lb.classList.add('open');
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', ()=> lb.classList.remove('open'));
+  lb.addEventListener('click', (e)=>{ if(e.target === lb) lb.classList.remove('open'); });
+</script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+/* =========================================================
+   Midnight Scrapbook Party — shared design system
+   ========================================================= */
+:root{
+  --bg: #1f1526;
+  --bg-soft: #2a1b34;
+  --bg-card: #33223f;
+  --pink: #f6b8d0;
+  --pink-soft: #ffd9e6;
+  --gold: #eec16b;
+  --gold-soft: #f7dca0;
+  --berry: #d9648b;
+  --berry-deep: #b23f68;
+  --cream: #fbf1e6;
+  --ink: #efe6f2;
+  --shadow: rgba(0,0,0,.45);
+  --tape: rgba(255,255,255,.14);
+  --font-display: "Fraunces", Georgia, serif;
+  --font-hand: "Caveat", cursive;
+  --font-body: "Poppins", "Sarabun", sans-serif;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+::selection{ background:var(--berry); color:#fff; }
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:var(--font-body);
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  background:
+    radial-gradient(circle at 15% 10%, #35233f 0%, transparent 45%),
+    radial-gradient(circle at 85% 0%, #2c1a3a 0%, transparent 40%),
+    var(--bg);
+  overflow-x:hidden;
+  position:relative;
+  animation:pageIn .6s cubic-bezier(.22,.68,.35,1);
+}
+@keyframes pageIn{
+  from{ opacity:0; }
+  to{ opacity:1; }
+}
+
+/* soft floating stars in background */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:
+    radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,.5) 0, transparent 60%),
+    radial-gradient(2px 2px at 80% 30%, rgba(255,255,255,.4) 0, transparent 60%),
+    radial-gradient(1.5px 1.5px at 60% 70%, rgba(255,255,255,.35) 0, transparent 60%),
+    radial-gradient(2px 2px at 30% 85%, rgba(255,255,255,.35) 0, transparent 60%),
+    radial-gradient(1.5px 1.5px at 50% 15%, rgba(255,255,255,.3) 0, transparent 60%),
+    radial-gradient(2px 2px at 92% 65%, rgba(255,255,255,.35) 0, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+a{ color:inherit; text-decoration:none; }
+
+/* ---------- garland (signature element) ---------- */
+.garland{
+  position:relative;
+  width:100%;
+  height:64px;
+  z-index:5;
+  pointer-events:none;
+}
+.garland svg{ width:100%; height:100%; display:block; }
+.bulb{ animation: twinkle 2.4s ease-in-out infinite; transform-origin:center; }
+.bulb:nth-child(2n){ animation-delay:.4s; }
+.bulb:nth-child(3n){ animation-delay:.8s; }
+.bulb:nth-child(4n){ animation-delay:1.2s; }
+@keyframes twinkle{
+  0%,100%{ opacity:.55; filter:drop-shadow(0 0 2px currentColor); }
+  50%{ opacity:1; filter:drop-shadow(0 0 8px currentColor); }
+}
+
+/* ---------- nav ---------- */
+.topnav{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+  flex-wrap:wrap;
+  padding:10px 18px;
+  background:rgba(31,21,38,.72);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.topnav a{
+  position:relative;
+  font-family:var(--font-hand);
+  font-size:1.4rem;
+  letter-spacing:.2px;
+  padding:7px 18px;
+  border-radius:999px;
+  color:var(--pink-soft);
+  transition:background .35s cubic-bezier(.22,.68,.35,1), color .35s, transform .35s cubic-bezier(.22,.68,.35,1);
+  white-space:nowrap;
+}
+.topnav a:hover{
+  background:rgba(217,100,139,.25);
+  color:#fff;
+  transform:translateY(-1px);
+}
+.topnav a.active{
+  background:var(--berry);
+  color:#fff;
+  box-shadow:0 6px 16px rgba(217,100,139,.4);
+}
+
+/* ---------- date badge (shown on every page) ---------- */
+.date-pill{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--font-hand);
+  font-size:1.15rem;
+  color:#3a2410;
+  background:linear-gradient(135deg, var(--gold-soft), var(--gold));
+  padding:5px 16px;
+  border-radius:999px;
+  margin-left:6px;
+  box-shadow:0 4px 12px rgba(238,193,107,.35);
+  white-space:nowrap;
+}
+
+/* ---------- layout ---------- */
+main{
+  position:relative;
+  z-index:2;
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px 22px 90px;
+}
+
+.eyebrow{
+  display:block;
+  font-family:var(--font-hand);
+  color:var(--gold);
+  font-size:clamp(1.35rem, 2.6vw, 1.65rem);
+  letter-spacing:.6px;
+  margin-bottom:2px;
+}
+
+h1, h2, h3{
+  font-family:var(--font-display);
+  font-weight:600;
+  color:var(--cream);
+  letter-spacing:-.01em;
+  margin:.2em 0 .45em;
+}
+h1{
+  font-size:clamp(2.3rem, 6.2vw, 3.8rem);
+  font-style:italic;
+  line-height:1.12;
+  text-shadow:0 2px 24px rgba(238,193,107,.25);
+}
+h2{ font-size:clamp(1.65rem, 4.2vw, 2.35rem); line-height:1.2; }
+h3{ font-size:clamp(1.25rem, 3vw, 1.6rem); line-height:1.25; }
+
+p{
+  font-size:clamp(.98rem, 1.4vw, 1.08rem);
+  line-height:1.75;
+  color:var(--ink);
+  opacity:.92;
+  max-width:65ch;
+}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:.98rem;
+  letter-spacing:.2px;
+  padding:12px 26px;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+  background:linear-gradient(135deg, var(--berry), var(--berry-deep));
+  color:#fff;
+  box-shadow:0 8px 22px rgba(217,100,139,.35);
+  transition:transform .3s cubic-bezier(.22,.68,.35,1), box-shadow .3s cubic-bezier(.22,.68,.35,1), filter .3s;
+}
+.btn:hover{ transform:translateY(-3px); box-shadow:0 14px 30px rgba(217,100,139,.45); filter:brightness(1.06); }
+.btn.gold{
+  background:linear-gradient(135deg, var(--gold), #d99a3a);
+  color:#3a2410;
+  box-shadow:0 8px 22px rgba(238,193,107,.35);
+}
+.btn.gold:hover{ box-shadow:0 14px 30px rgba(238,193,107,.45); }
+.btn:active{ transform:translateY(0) scale(.97); }
+.btn:focus-visible, a:focus-visible, button:focus-visible{
+  outline:2px solid var(--gold-soft);
+  outline-offset:3px;
+}
+
+/* ---------- polaroid photos ---------- */
+.polaroid{
+  background:var(--cream);
+  padding:12px 12px 46px;
+  border-radius:4px;
+  box-shadow:0 14px 30px var(--shadow);
+  display:inline-block;
+  position:relative;
+  transition:transform .45s cubic-bezier(.22,.68,.35,1), box-shadow .45s cubic-bezier(.22,.68,.35,1);
+}
+.polaroid img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:1px;
+  background:#000;
+}
+.polaroid figcaption{
+  font-family:var(--font-hand);
+  font-size:1.3rem;
+  letter-spacing:.2px;
+  color:#3a2b1f;
+  text-align:center;
+  margin-top:10px;
+}
+.polaroid:hover{ transform:translateY(-8px) scale(1.02) rotate(0deg) !important; box-shadow:0 26px 46px var(--shadow); z-index:5; }
+
+.tape{
+  position:absolute;
+  width:70px; height:26px;
+  background:var(--tape);
+  border:1px solid rgba(255,255,255,.18);
+  top:-14px; left:50%;
+  transform:translateX(-50%) rotate(-4deg);
+  box-shadow:0 3px 6px rgba(0,0,0,.25);
+}
+
+/* ---------- card ---------- */
+.card{
+  background:var(--bg-card);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:18px;
+  padding:28px;
+  box-shadow:0 14px 34px var(--shadow);
+}
+
+/* ---------- footer ---------- */
+footer{
+  position:relative; z-index:2;
+  text-align:center;
+  padding:30px 16px 50px;
+  font-family:var(--font-hand);
+  font-size:1.2rem;
+  color:var(--pink-soft);
+  opacity:.8;
+}
+
+/* ---------- confetti ---------- */
+.confetti-piece{
+  position:fixed;
+  top:-20px;
+  border-radius:2px;
+  pointer-events:none;
+  z-index:999;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  to{ transform:translateY(110vh) rotate(540deg); opacity:.9; }
+}
+
+/* ---------- floating balloons ---------- */
+.balloon{
+  position:fixed;
+  bottom:-140px;
+  width:46px; height:58px;
+  border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+  z-index:1;
+  pointer-events:none;
+  animation:rise linear forwards;
+  opacity:.85;
+}
+.balloon::after{
+  content:"";
+  position:absolute;
+  bottom:-40px; left:50%;
+  width:1px; height:40px;
+  background:rgba(255,255,255,.3);
+}
+@keyframes rise{
+  to{ transform:translateY(-115vh) translateX(var(--drift, 20px)); }
+}
+
+@media (max-width:640px){
+  .topnav a{ font-size:1.15rem; padding:5px 11px; }
+  main{ padding:16px 14px 70px; }
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .8s cubic-bezier(.22,.68,.35,1), transform .8s cubic-bezier(.22,.68,.35,1);
+}
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* ---------- birthday date badge (hero) ---------- */
+.bday-badge{
+  display:inline-flex; align-items:center; gap:10px;
+  margin:14px auto 6px;
+  padding:9px 22px;
+  border-radius:999px;
+  background:rgba(238,193,107,.12);
+  border:1px solid rgba(238,193,107,.4);
+  font-family:var(--font-hand);
+  font-size:clamp(1.15rem, 2.4vw, 1.4rem);
+  color:var(--gold-soft);
+}
+.bday-badge strong{ color:var(--gold); font-weight:700; }
+
+/* ---------- countdown ---------- */
+.countdown{
+  display:flex; justify-content:center; gap:14px;
+  margin:28px auto 8px;
+  flex-wrap:wrap;
+}
+.countdown .unit{
+  background:var(--bg-card);
+  border:1px solid rgba(238,193,107,.25);
+  border-radius:16px;
+  padding:14px 8px 10px;
+  width:78px;
+  text-align:center;
+  box-shadow:0 10px 24px var(--shadow);
+}
+.countdown .num{
+  display:block;
+  font-family:var(--font-display);
+  font-size:1.9rem;
+  font-weight:600;
+  color:var(--gold-soft);
+  font-variant-numeric:tabular-nums;
+  transition:transform .25s cubic-bezier(.22,.68,.35,1);
+}
+.countdown .num.tick{ transform:scale(1.18); }
+.countdown .lbl{
+  display:block;
+  font-family:var(--font-hand);
+  font-size:1rem;
+  color:var(--pink-soft);
+  margin-top:2px;
+  opacity:.85;
+}
+.countdown.arrived .unit{ border-color:rgba(217,100,139,.5); }
