@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🎂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,600&family=Caveat:wght@500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .cover{
+    min-height:calc(100vh - 64px);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:20px;
+  }
+  .cake-wrap{ cursor:pointer; user-select:none; margin-bottom:6px; }
+  .envelope{
+    margin-top:38px;
+    width:min(320px, 80vw);
+    aspect-ratio:3/2;
+    position:relative;
+    cursor:pointer;
+  }
+  .envelope .body{
+    position:absolute; inset:0;
+    background:linear-gradient(160deg, var(--gold-soft), var(--gold));
+    border-radius:10px;
+    box-shadow:0 18px 40px var(--shadow);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .envelope .flap{
+    position:absolute; top:0; left:0; width:100%; height:52%;
+    background:linear-gradient(160deg,#d9a545,#c9902f);
+    clip-path:polygon(0 0, 100% 0, 50% 100%);
+    transform-origin:top;
+    transition:transform .6s cubic-bezier(.6,-0.2,.3,1.4);
+    border-radius:10px 10px 0 0;
+    z-index:2;
+  }
+  .envelope.open .flap{ transform:rotateX(160deg); }
+  .envelope .label{
+    font-family:var(--font-hand); font-size:1.4rem; color:#4a2f0d; z-index:1;
+  }
+  .hint{ font-family:var(--font-hand); color:var(--pink-soft); font-size:1.15rem; margin-top:14px; opacity:.85;}
+  .subtitle{ max-width:520px; margin:8px auto 0; color:var(--pink-soft); }
+  .nav-cards{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:16px; margin-top:46px; width:100%; max-width:820px;
+  }
+  .nav-card{
+    background:var(--bg-card);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:22px 14px;
+    text-align:center;
+    transition:transform .35s cubic-bezier(.22,.68,.35,1), background .35s cubic-bezier(.22,.68,.35,1), box-shadow .35s cubic-bezier(.22,.68,.35,1);
+  }
+  .nav-card:hover{ transform:translateY(-6px) scale(1.03); background:var(--berry); box-shadow:0 16px 32px rgba(217,100,139,.35); }
+  .nav-card .emoji{ font-size:clamp(1.7rem, 4vw, 2.1rem); display:block; margin-bottom:8px; transition:transform .35s cubic-bezier(.22,.68,.35,1); }
+  .nav-card:hover .emoji{ transform:scale(1.15) rotate(-6deg); }
+  .nav-card span{ font-family:var(--font-hand); font-size:clamp(1.15rem, 2.6vw, 1.35rem); }
+  .hidden-msg{
+    display:none;
+    margin-top:26px;
+    max-width:480px;
+  }
+</style>
+</head>
+<body>
+<div class="garland" id="garland-top"></div>
+<nav class="topnav">
+  <a href="index.html">🏠 Home</a>
+  <a href="gallery.html">📸 Gallery</a>
+  <a href="games.html">🎮 Games</a>
+  <a href="letter.html">💌 Letter</a>
+  <a href="wish.html">🕯️ Wishes</a>
+  <span class="date-pill">🎂 27.07.2569</span>
+</nav>
+
+<main>
+  <section class="cover">
+    <p class="eyebrow">—  Happy Birthday  —</p>
+    <h1> นางสาว ปพิชญา มรรควิน</h1>
+    <div class="bday-badge">🎈 ประจำงวดวันที่ : <strong>27 กรกฎาคม 2569</strong></div>
+
+    <div class="countdown" id="countdown"></div>
+
+    <div class="cake-wrap" id="cakeBtn" title="กดฉันสิ!">
+      <svg width="140" height="140" viewBox="0 0 140 140">
+        <ellipse cx="70" cy="118" rx="46" ry="10" fill="#00000030"/>
+        <rect x="34" y="80" width="72" height="34" rx="6" fill="#f2b8cf"/>
+        <rect x="34" y="80" width="72" height="10" rx="4" fill="#fbdce9"/>
+        <rect x="40" y="58" width="60" height="26" rx="6" fill="#eec16b"/>
+        <rect x="40" y="58" width="60" height="8" rx="4" fill="#f7dca0"/>
+        <g id="candles">
+          <rect x="52" y="40" width="6" height="20" rx="2" fill="#fbf1e6"/>
+          <rect x="67" y="36" width="6" height="24" rx="2" fill="#fbf1e6"/>
+          <rect x="82" y="40" width="6" height="20" rx="2" fill="#fbf1e6"/>
+          <ellipse class="flame" cx="55" cy="36" rx="4" ry="7" fill="#ffb44d"/>
+          <ellipse class="flame" cx="70" cy="32" rx="4.5" ry="8" fill="#ffb44d"/>
+          <ellipse class="flame" cx="85" cy="36" rx="4" ry="7" fill="#ffb44d"/>
+        </g>
+      </svg>
+      <p class="hint">👆 แตะที่เค้กเพื่อฉลอง!!!</p>
+    </div>
+
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="body"><span class="label">Click</span></div>
+    </div>
+    <div class="hidden-msg card reveal" id="hiddenMsg">
+      <p style="font-family:var(--font-hand); font-size:1.5rem; color:var(--gold-soft); margin:0;">
+        " สุขสันต์วันเกิดนางสาวเกรท อายุครบ 20 ปีพร้อมพุงอีก 80 โล รักมากๆนะไอ้พุงย้วย "
+      </p>
+    </div>
+
+    <div class="nav-cards">
+      <a class="nav-card" href="gallery.html"><span class="emoji">📸</span><span>Gallery</span></a>
+      <a class="nav-card" href="games.html"><span class="emoji">🎮</span><span>Games</span></a>
+      <a class="nav-card" href="letter.html"><span class="emoji">💌</span><span>Letter</span></a>
+      <a class="nav-card" href="wish.html"><span class="emoji">🕯️</span><span>Wishes</span></a>
+    </div>
+  </section>
+</main>
+
+<footer>made with 🩷 for the birthday girl</footer>
+
+<script src="assets/common.js"></script>
+<script>
+  spawnBalloons();
+  // นับถอยหลังไปวันที่ 27/07/2569 (พ.ศ.) = 27 กรกฎาคม 2026 (ค.ศ.), เที่ยงคืน
+  buildCountdown('2026-07-27T00:00:00+07:00', 'countdown');
+
+  const cakeBtn = document.getElementById('cakeBtn');
+  cakeBtn.addEventListener('click', (e)=>{
+    const r = cakeBtn.getBoundingClientRect();
+    confettiBurst(r.left + r.width/2, r.top, 90);
+  });
+
+  const envelope = document.getElementById('envelope');
+  const hiddenMsg = document.getElementById('hiddenMsg');
+  envelope.addEventListener('click', ()=>{
+    envelope.classList.toggle('open');
+    if(envelope.classList.contains('open')){
+      hiddenMsg.style.display = 'block';
+      requestAnimationFrame(()=> hiddenMsg.classList.add('in'));
+      const r = envelope.getBoundingClientRect();
+      confettiBurst(r.left + r.width/2, r.top, 50);
+    }
+  });
+</script>
+</body>
+</html>
